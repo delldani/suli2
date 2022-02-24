@@ -30,3 +30,14 @@ export const makeRandomCardsArray = (cardsNumber) => {
   }
   return newCardsArray;
 };
+
+export const getBackSide = (fileName) => {
+  if (
+    fileName.split("-")[1] === "clubs" ||
+    fileName.split("-")[1] === "spades"
+  ) {
+    return 1;
+  } else {
+    return 2;
+  }
+};
