@@ -29,7 +29,7 @@ export const makeRandomCardsArray = (cardsNumber) => {
   for (let i = cards.length - 1; i > -1; i--) {
     index = randomNumber(0, i);
     const element = cards.splice(index, 1);
-    newCardsArray.push(element[0]);
+    newCardsArray.push({ name: element[0], showFigure: false, isFound: false });
   }
   return newCardsArray;
 };
