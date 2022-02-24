@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { makeRandomCardsArray } from "./components/utils";
+import { Card } from "./components/Card";
+
+const CARDSNUMBER = 8; //csak kettővel osztható lehet, és kevesebb
 
 function App() {
+  console.log(makeRandomCardsArray(CARDSNUMBER));
+  const fileName = "card-clubs-5.png";
+
+  const cards = makeRandomCardsArray(CARDSNUMBER).map((fileName, index) => {
+    return <Card fileName={`cards/${fileName}.png`} key={index} />;
+  });
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="table">
+        <div className="cards">
+          {cards}
+          {/* <Card fileName={`cards/${fileName}`} /> */}
+        </div>
+      </div>
     </div>
   );
 }
