@@ -20,6 +20,9 @@ export const generateAllCardsArray = () => {
 };
 
 export const makeRandomCardsArray = (cardsNumber) => {
+  if (cardsNumber % 2 !== 0 || cardsNumber > 104) {
+    return [];
+  }
   const cards = generateAllCardsArray().slice(0, cardsNumber);
   const newCardsArray = [];
   let index;

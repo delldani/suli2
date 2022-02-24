@@ -2,16 +2,20 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export const Card = (props) => {
-  const { fileName, backSide } = props;
-  const [isShow, setShow] = React.useState(true);
+  const { fileName, backSide, setShow } = props;
+  const [isShow, setIsShow] = React.useState(false);
 
   const onClickCard = () => {
-    setShow(!isShow);
+    setIsShow(!isShow);
   };
 
   return (
     <div className="card" onClick={onClickCard}>
-      {isShow ? <img src={fileName} /> : <img src={backSide} />}
+      {isShow ? (
+        <img src={fileName} alt="card" />
+      ) : (
+        <img src={backSide} alt="card" />
+      )}
     </div>
   );
 };
@@ -19,4 +23,5 @@ export const Card = (props) => {
 Card.propTypes = {
   fileName: PropTypes.string,
   backSide: PropTypes.string,
+  setShow: PropTypes.func,
 };
