@@ -33,7 +33,7 @@ const App = () => {
         clearCards();
         setRandomCardsArray(newArray);
         wait.current = false;
-      }, 1000);
+      }, 1500);
     }
   }, [randomCardsArray]);
 
