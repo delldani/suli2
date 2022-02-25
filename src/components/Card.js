@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 export const Card = (props) => {
   const { fileName, backSide, handleClickCard, index, show } = props;
@@ -16,12 +15,4 @@ export const Card = (props) => {
       )}
     </div>
   );
-};
-
-Card.propTypes = {
-  fileName: PropTypes.string,
-  backSide: PropTypes.string,
-  handleClickCard: PropTypes.func,
-  index: PropTypes.number,
-  show: PropTypes.bool,
 };

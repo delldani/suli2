@@ -15,3 +15,7 @@
 .card {
   cursor: pointer;
 }
+.solved {
+  font-size: 30px;
+  color: red;
+}

@@ -13,6 +13,7 @@ const App = () => {
     index: null,
     fileName: "",
   });
+  const [solved, setSolved] = React.useState(0);
   const clickedSecondCard = React.useRef({
     index: null,
     fileName: "",
@@ -45,6 +46,7 @@ const App = () => {
           newArray[index].isFound = true;
           newArray[clickedCard.index].isFound = true;
           setClickedCard({ index: null, fileName: "" });
+          setSolved(solved + 1);
         } else {
           clickedSecondCard.current = { index, fileName };
           newArray[index].showFigure = true;
@@ -64,7 +66,7 @@ const App = () => {
         key={index}
         index={index}
         handleClickCard={handleClickCard}
-        show={item.isFound ? true : item.showFigure}
+        show={item.isFound || item.showFigure}
       />
     );
   });
@@ -73,6 +75,7 @@ const App = () => {
     <div className="App">
       <div className="table">
         <div className="cards">{cards}</div>
+        {solved === cards.length / 2 && <div className="solved">MEGOLDVA</div>}
       </div>
     </div>
   );
