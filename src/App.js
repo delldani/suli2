@@ -11,11 +11,11 @@ const App = () => {
   );
   const [clickedCard, setClickedCard] = React.useState({
     index: null,
-    fileName: "",
+    fileName: null,
   });
   const clickedSecondCard = React.useRef({
     index: null,
-    fileName: "",
+    fileName: null,
   });
   const [solved, setSolved] = React.useState(0);
   const wait = React.useRef(false);
@@ -26,25 +26,25 @@ const App = () => {
         const newArray = [...randomCardsArray];
         newArray[clickedSecondCard.current.index].showFigure = false;
         newArray[clickedCard.index].showFigure = false;
-        clickedSecondCard.current = { index: null, fileName: "" };
+        clickedSecondCard.current = { index: null, fileName: null };
         setRandomCardsArray(newArray);
         wait.current = false;
       }, 1500);
-      setClickedCard({ index: null, fileName: "" });
+      setClickedCard({ index: null, fileName: null });
     }
   }, [randomCardsArray]);
 
   const handleClickCard = (index, fileName) => {
     if (!wait.current && index !== clickedCard.index) {
       const newArray = [...randomCardsArray];
-      if (clickedCard.fileName === "") {
+      if (clickedCard.fileName === null) {
         setClickedCard({ index, fileName });
         newArray[index].showFigure = true;
       } else {
         if (clickedCard.fileName === fileName && clickedCard.index !== index) {
           newArray[index].isFound = true;
           newArray[clickedCard.index].isFound = true;
-          setClickedCard({ index: null, fileName: "" });
+          setClickedCard({ index: null, fileName: null });
           setSolved(solved + 1);
         } else {
           clickedSecondCard.current = { index, fileName };
