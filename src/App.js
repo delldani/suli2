@@ -10,11 +10,11 @@ const App = () => {
     makeRandomCardsArray(CARDSNUMBER)
   );
   const [clickedCard, setClickedCard] = React.useState({
-    index: 0,
+    index: null,
     fileName: "",
   });
   const clickedSecondCard = React.useRef({
-    index: 0,
+    index: null,
     fileName: "",
   });
 
@@ -26,31 +26,33 @@ const App = () => {
         const newArray = [...randomCardsArray];
         newArray[clickedSecondCard.current.index].showFigure = false;
         newArray[clickedCard.index].showFigure = false;
-        clickedSecondCard.current = { index: 0, fileName: "" };
+        clickedSecondCard.current = { index: null, fileName: "" };
         setRandomCardsArray(newArray);
+        wait.current = false;
       }, 1500);
-      setClickedCard({ index: 0, fileName: "" });
-      wait.current = false;
+      setClickedCard({ index: null, fileName: "" });
     }
   }, [randomCardsArray]);
 
   const handleClickCard = (index, fileName) => {
-    const newArray = [...randomCardsArray];
-    if (clickedCard.fileName === "") {
-      setClickedCard({ index, fileName });
-      newArray[index].showFigure = true;
-    } else {
-      if (clickedCard.fileName === fileName && clickedCard.index !== index) {
-        newArray[index].isFound = true;
-        newArray[clickedCard.index].isFound = true;
-        setClickedCard({ index: 0, fileName: "" });
-      } else {
-        clickedSecondCard.current = { index, fileName };
+    if (!wait.current && index !== clickedCard.index) {
+      const newArray = [...randomCardsArray];
+      if (clickedCard.fileName === "") {
+        setClickedCard({ index, fileName });
         newArray[index].showFigure = true;
-        wait.current = true;
+      } else {
+        if (clickedCard.fileName === fileName && clickedCard.index !== index) {
+          newArray[index].isFound = true;
+          newArray[clickedCard.index].isFound = true;
+          setClickedCard({ index: null, fileName: "" });
+        } else {
+          clickedSecondCard.current = { index, fileName };
+          newArray[index].showFigure = true;
+          wait.current = true;
+        }
       }
+      setRandomCardsArray(newArray);
     }
-    setRandomCardsArray(newArray);
   };
 
   const cards = randomCardsArray.map((item, index) => {
