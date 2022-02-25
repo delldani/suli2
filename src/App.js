@@ -13,12 +13,11 @@ const App = () => {
     index: null,
     fileName: "",
   });
-  const [solved, setSolved] = React.useState(0);
   const clickedSecondCard = React.useRef({
     index: null,
     fileName: "",
   });
-
+  const [solved, setSolved] = React.useState(0);
   const wait = React.useRef(false);
 
   React.useEffect(() => {
