@@ -4,9 +4,7 @@ export const Card = (props) => {
   const { fileName, backSide, handleClickCard, index, show } = props;
 
   const onClickCard = () => {
-    if (!show) {
-      handleClickCard(index, fileName);
-    }
+    handleClickCard(index, fileName);
   };
   return (
     <div className="card" onClick={onClickCard}>

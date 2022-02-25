@@ -38,7 +38,11 @@ const App = () => {
   }, [randomCardsArray]);
 
   const handleClickCard = (index, fileName) => {
-    if (!wait.current && index !== clickedFirstCard.current.index) {
+    if (
+      !wait.current &&
+      index !== clickedFirstCard.current.index &&
+      randomCardsArray[index].isFound === false
+    ) {
       const newArray = [...randomCardsArray];
       if (clickedFirstCard.current.fileName === null) {
         clickedFirstCard.current = { index, fileName };
