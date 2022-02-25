@@ -9,11 +9,15 @@ const App = () => {
   const [randomCardsArray, setRandomCardsArray] = React.useState(
     makeRandomCardsArray(CARDSNUMBER)
   );
-  const [clickedCard, setClickedCard] = React.useState({
+  // const [clickedCard, setClickedCard] = React.useState({
+  //   index: null,
+  //   fileName: null,
+  // });
+  const clickedSecondCard = React.useRef({
     index: null,
     fileName: null,
   });
-  const clickedSecondCard = React.useRef({
+  const clickedFirstCard = React.useRef({
     index: null,
     fileName: null,
   });
@@ -25,26 +29,29 @@ const App = () => {
       setTimeout(() => {
         const newArray = [...randomCardsArray];
         newArray[clickedSecondCard.current.index].showFigure = false;
-        newArray[clickedCard.index].showFigure = false;
+        newArray[clickedFirstCard.current.index].showFigure = false;
         clickedSecondCard.current = { index: null, fileName: null };
         setRandomCardsArray(newArray);
         wait.current = false;
-      }, 1500);
-      setClickedCard({ index: null, fileName: null });
+        clickedFirstCard.current = { index: null, fileName: null };
+      }, 1000);
     }
   }, [randomCardsArray]);
 
   const handleClickCard = (index, fileName) => {
-    if (!wait.current && index !== clickedCard.index) {
+    if (!wait.current && index !== clickedFirstCard.current.index) {
       const newArray = [...randomCardsArray];
-      if (clickedCard.fileName === null) {
-        setClickedCard({ index, fileName });
+      if (clickedFirstCard.current.fileName === null) {
+        clickedFirstCard.current = { index, fileName };
         newArray[index].showFigure = true;
       } else {
-        if (clickedCard.fileName === fileName && clickedCard.index !== index) {
+        if (
+          clickedFirstCard.current.fileName === fileName &&
+          clickedFirstCard.current.index !== index
+        ) {
           newArray[index].isFound = true;
-          newArray[clickedCard.index].isFound = true;
-          setClickedCard({ index: null, fileName: null });
+          newArray[clickedFirstCard.current.index].isFound = true;
+          clickedFirstCard.current = { index: null, fileName: null };
           setSolved(solved + 1);
         } else {
           clickedSecondCard.current = { index, fileName };
