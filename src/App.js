@@ -23,38 +23,34 @@ const App = () => {
   React.useEffect(() => {
     if (wait.current) {
       setTimeout(() => {
-        const newArray2 = [...randomCardsArray];
-        newArray2[clickedSecondCard.current.index].showFigure = false;
-        newArray2[clickedCard.index].showFigure = false;
+        const newArray = [...randomCardsArray];
+        newArray[clickedSecondCard.current.index].showFigure = false;
+        newArray[clickedCard.index].showFigure = false;
         clickedSecondCard.current = { index: 0, fileName: "" };
-        setRandomCardsArray(newArray2);
-      }, 2000);
+        setRandomCardsArray(newArray);
+      }, 1500);
       setClickedCard({ index: 0, fileName: "" });
       wait.current = false;
     }
   }, [randomCardsArray]);
 
   const handleClickCard = (index, fileName) => {
+    const newArray = [...randomCardsArray];
     if (clickedCard.fileName === "") {
       setClickedCard({ index, fileName });
-      const newArray = [...randomCardsArray];
       newArray[index].showFigure = true;
-      setRandomCardsArray(newArray);
     } else {
       if (clickedCard.fileName === fileName && clickedCard.index !== index) {
-        const newArray = [...randomCardsArray];
         newArray[index].isFound = true;
         newArray[clickedCard.index].isFound = true;
-        setRandomCardsArray(newArray);
         setClickedCard({ index: 0, fileName: "" });
       } else {
         clickedSecondCard.current = { index, fileName };
-        const newArray = [...randomCardsArray];
         newArray[index].showFigure = true;
         wait.current = true;
-        setRandomCardsArray(newArray);
       }
     }
+    setRandomCardsArray(newArray);
   };
 
   const cards = randomCardsArray.map((item, index) => {
